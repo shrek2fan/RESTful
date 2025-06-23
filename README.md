@@ -13,7 +13,7 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
    ```bash
    npm install
    ```
-2. Create a `.env` file at the project root to configure the database connection string and the server port. Example contents:
+2. Copy `.env.example` to `.env` at the project root and adjust the variables as needed. The application uses **dotenv** to load these values. Example contents:
    ```env
    MONGODB_URI=mongodb://localhost:27017/yourDatabaseName
    PORT=3000
@@ -22,6 +22,8 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
 
 ### Environment Variables
 
+The following variables are loaded from `.env` and can also be provided as environment variables:
+
 | Variable | Description | Default |
 | -------- | ----------- | ------- |
 | `PORT` | Port where the server listens | `3000` |
@@ -29,10 +31,10 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
 
 ## Running the server
 
-Start the application with Node.js:
+Start the application using the provided npm script:
 
 ```bash
-node server.js
+npm start
 ```
 
 The server will start on `http://localhost:3000` unless you changed the port.
