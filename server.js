@@ -2,11 +2,32 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // Initializing Express app
 const app = express();
 const port = process.env.PORT || 3000;
+
+const auth = (req, res, next) => {
+  const header = req.headers['authorization'];
+  if (!header) {
+    return res.status(401).json({ message: 'Missing Authorization header' });
+  }
+
+  const token = header.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Invalid Authorization header' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET || 'secretkey', (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid token' });
+    }
+    req.user = decoded;
+    next();
+  });
+};
 
 // Middleware to parse JSON data
 app.use(bodyParser.json());
@@ -39,6 +60,17 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Simple login route that returns a JWT
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'password') {
+    const token = jwt.sign({ username }, process.env.JWT_SECRET || 'secretkey');
+    res.json({ token });
+  } else {
+    res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
+
 // Route to serve the upload form
 // Pre-condition: None
 // Post-condition: Sends HTML form for product data entry.
@@ -49,7 +81,7 @@ app.get('/upload', (req, res) => {
 // Route to list all products
 // Pre-condition: Products stored in the database.
 // Post-condition: Fetches and sends all product records as JSON.
-app.get('/list', async (req, res) => {
+app.get('/list', auth, async (req, res) => {
   try {
     const products = await Product.find({});
     res.json(products);
@@ -99,7 +131,7 @@ app.get('/query', (req, res) => {
 // Route to handle product creation
 // Pre-condition: Valid product data provided through POST request.
 // Post-condition: New product record added to the database.
-app.post('/product', async (req, res) => {
+app.post('/product', auth, async (req, res) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
@@ -112,7 +144,7 @@ app.post('/product', async (req, res) => {
 // Route for querying products by price
 // Pre-condition: Price provided as a query parameter.
 // Post-condition: Fetches and sends product records less than or equal to the given price.
-app.get('/products', async (req, res) => {
+app.get('/products', auth, async (req, res) => {
   try {
     const { maxPrice } = req.query;
     const products = await Product.find({ price: { $lte: maxPrice } }).sort('price');

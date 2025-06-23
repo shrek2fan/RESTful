@@ -35,25 +35,48 @@ Start the application with Node.js:
 node server.js
 ```
 
+
 The server will start on `http://localhost:3000` unless you changed the port.
+
+## Authentication
+
+A demonstration login route is available to obtain a JSON Web Token (JWT). Send
+a POST request with the hardcoded credentials `admin`/`password`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"username":"admin","password":"password"}' \
+     http://localhost:3000/login
+```
+
+Use the returned token in the `Authorization` header when calling protected
+routes:
+
+```
+Authorization: Bearer <token>
+```
+
+The routes `/product`, `/list` and `/products` require a valid token.
 
 ## API usage
 
 - **List products**
   ```bash
-  curl http://localhost:3000/list
+  curl -H "Authorization: Bearer <token>" http://localhost:3000/list
   ```
 
 - **Create a product**
   ```bash
-  curl -X POST -H "Content-Type: application/json" \
+  curl -X POST -H "Authorization: Bearer <token>" \
+       -H "Content-Type: application/json" \
        -d '{"name":"Sample","price":19.99,"category":"General"}' \
        http://localhost:3000/product
   ```
 
 - **Query by price**
   ```bash
-  curl http://localhost:3000/products?maxPrice=20
+  curl -H "Authorization: Bearer <token>" \
+       http://localhost:3000/products?maxPrice=20
   ```
 
 You can also access `/upload` and `/query` in the browser to use HTML forms for uploading or querying data.
