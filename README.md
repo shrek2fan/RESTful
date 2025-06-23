@@ -29,10 +29,10 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
 
 ## Running the server
 
-Start the application with Node.js:
+Start the application using **npm**:
 
 ```bash
-node server.js
+npm start
 ```
 
 The server will start on `http://localhost:3000` unless you changed the port.
