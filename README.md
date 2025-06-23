@@ -18,14 +18,15 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
    MONGODB_URI=mongodb://localhost:27017/yourDatabaseName
    PORT=3000
    ```
-   You can modify these values or set them as environment variables if preferred.
+   `MONGODB_URI` has no default, so you must supply your own connection string.
+   `PORT` defaults to `3000` if not set.
 
 ### Environment Variables
 
 | Variable | Description | Default |
 | -------- | ----------- | ------- |
 | `PORT` | Port where the server listens | `3000` |
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/yourDatabaseName` |
+| `MONGODB_URI` | MongoDB connection string | *(required)* |
 
 ## Running the server
 
