@@ -1,14 +1,19 @@
+// Load environment variables from .env if available
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/products');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const mongoUri =
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/yourDatabaseName';
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/yourDatabaseName', {
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
