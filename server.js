@@ -13,7 +13,12 @@ app.use(bodyParser.json());
 // Connection to MongoDB
 // Pre-condition: MongoDB server is running and accessible at the given URI.
 // Post-condition: Establishes a connection with the MongoDB database.
-mongoose.connect('mongodb://localhost:27017/yourDatabaseName', { useNewUrlParser: true, useUnifiedTopology: true });
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect('mongodb://localhost:27017/yourDatabaseName', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
 
 // Defining a Schema for Products
 // Pre-condition: None
@@ -121,6 +126,10 @@ app.get('/products', async (req, res) => {
 // Starting the server
 // Pre-condition: None
 // Post-condition: Server starts and listens on the specified port.
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
+}
+
+module.exports = app;
