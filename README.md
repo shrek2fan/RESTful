@@ -58,6 +58,14 @@ The server will start on `http://localhost:3000` unless you changed the port.
 
 You can also access `/upload` and `/query` in the browser to use HTML forms for uploading or querying data.
 
+## API documentation
+
+After starting the server you can view an interactive Swagger UI describing all available endpoints by visiting:
+
+```
+http://localhost:3000/api-docs
+```
+
 ## Main technologies
 
 - **Express** – web framework for Node.js
