@@ -1,11 +1,12 @@
 // Importing required modules
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // Initializing Express app
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON data
 app.use(bodyParser.json());
@@ -13,7 +14,10 @@ app.use(bodyParser.json());
 // Connection to MongoDB
 // Pre-condition: MongoDB server is running and accessible at the given URI.
 // Post-condition: Establishes a connection with the MongoDB database.
-mongoose.connect('mongodb://localhost:27017/yourDatabaseName', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 // Defining a Schema for Products
 // Pre-condition: None
