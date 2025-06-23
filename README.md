@@ -13,7 +13,7 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
    ```bash
    npm install
    ```
-2. Create a `.env` file at the project root to configure the database connection string and the server port. Example contents:
+2. Create a `.env` file at the project root to configure the database connection string and the server port. The application uses **dotenv** to load these values. Example contents:
    ```env
    MONGODB_URI=mongodb://localhost:27017/yourDatabaseName
    PORT=3000
@@ -21,6 +21,8 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
    You can modify these values or set them as environment variables if preferred.
 
 ### Environment Variables
+
+The following variables are loaded from `.env` and can also be provided as environment variables:
 
 | Variable | Description | Default |
 | -------- | ----------- | ------- |
