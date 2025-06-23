@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/products');
+const authRoutes = require('./routes/auth');
 const errorHandler = require('./middlewares/errorHandler');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
@@ -23,6 +24,7 @@ mongoose.connect(mongoUri, {
 
 const swaggerDocument = YAML.load(path.join(__dirname, 'swagger', 'swagger.yaml'));
 
+app.use('/', authRoutes);
 app.use('/', productRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
