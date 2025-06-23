@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: Example Products API
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3000
+paths:
+  /:
+    get:
+      summary: Hello World
+      responses:
+        '200':
+          description: Returns Hello World
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Hello World!
+  /upload:
+    get:
+      summary: Form to create a product
+      responses:
+        '200':
+          description: HTML form
+          content:
+            text/html:
+              schema:
+                type: string
+  /list:
+    get:
+      summary: List all products
+      responses:
+        '200':
+          description: Array of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /query:
+    get:
+      summary: HTML query page
+      responses:
+        '200':
+          description: HTML page
+          content:
+            text/html:
+              schema:
+                type: string
+  /product:
+    post:
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Success message
+          content:
+            text/plain:
+              schema:
+                type: string
+  /products:
+    get:
+      summary: Query products by price
+      parameters:
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+          required: false
+          description: Maximum price
+      responses:
+        '200':
+          description: Array of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        category:
+          type: string
+        dateAdded:
+          type: string
+          format: date-time
