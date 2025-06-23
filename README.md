@@ -116,3 +116,12 @@ docker-compose up
 
 This builds the Node.js image and starts a MongoDB container. The API will be available at `http://localhost:3000`.
 
+
+## Running tests
+
+Make sure all dependencies are installed with `npm install` before executing tests. Run the test suite using:
+
+```bash
+npm test
+```
+
