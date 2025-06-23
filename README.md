@@ -64,3 +64,14 @@ You can also access `/upload` and `/query` in the browser to use HTML forms for 
 - **Mongoose** – MongoDB object modeling for Node.js
 - **dotenv** – loads environment variables from `.env`
 
+
+## Docker usage
+
+To run the application and MongoDB using Docker Compose:
+
+```bash
+docker-compose up
+```
+
+This builds the Node.js image and starts a MongoDB container. The API will be available at `http://localhost:3000`.
+
