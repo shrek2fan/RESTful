@@ -27,6 +27,7 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
 | -------- | ----------- | ------- |
 | `PORT` | Port where the server listens | `3000` |
 | `MONGODB_URI` | MongoDB connection string | *(required)* |
+| `JWT_SECRET` | Secret used to sign JSON Web Tokens | `secretkey` |
 
 ## Running the server
 
@@ -58,6 +59,24 @@ The server will start on `http://localhost:3000` unless you changed the port.
   ```
 
 You can also access `/upload` and `/query` in the browser to use HTML forms for uploading or querying data.
+
+## Authentication
+
+Generate a token by calling the `/login` endpoint with the demo credentials:
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"username":"admin","password":"password"}' \
+     http://localhost:3000/login
+```
+
+Include the returned `token` in the `Authorization` header when calling protected routes as `Bearer <token>`.
+
+Protected routes:
+
+- `POST /product`
+- `GET /list`
+- `GET /products`
 
 ## API documentation
 
