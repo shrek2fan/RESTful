@@ -13,10 +13,11 @@ This project is a simple Node.js server demonstrating a small RESTful API for ma
    ```bash
    npm install
    ```
-2. Create a `.env` file at the project root to configure the database connection string and the server port. Example contents:
+2. Copy `.env.example` to `.env` at the project root and adjust the values as needed:
    ```env
-   MONGODB_URI=mongodb://localhost:27017/yourDatabaseName
    PORT=3000
+   MONGODB_URI=mongodb://localhost:27017/yourDatabaseName
+   JWT_SECRET=secretkey
    ```
    `MONGODB_URI` has no default, so you must supply your own connection string.
    `PORT` defaults to `3000` if not set.
