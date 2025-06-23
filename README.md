@@ -50,6 +50,16 @@ The server will start on `http://localhost:3000` unless you changed the port.
        -d '{"name":"Sample","price":19.99,"category":"General"}' \
        http://localhost:3000/product
   ```
+  If required fields are missing or invalid, the server responds with a JSON
+  error describing the validation issues.
+
+All errors in the API follow a simple format:
+```json
+{
+  "error": "Message",
+  "details": [/* optional array of issues */]
+}
+```
 
 - **Query by price**
   ```bash
@@ -63,4 +73,5 @@ You can also access `/upload` and `/query` in the browser to use HTML forms for 
 - **Express** – web framework for Node.js
 - **Mongoose** – MongoDB object modeling for Node.js
 - **dotenv** – loads environment variables from `.env`
+- **express-validator** – request data validation middleware
 

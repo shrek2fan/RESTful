@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/products');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/yourDatabaseName', {
 });
 
 app.use('/', productRoutes);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
