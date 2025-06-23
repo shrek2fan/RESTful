@@ -11,8 +11,7 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoUri =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/yourDatabaseName';
+const mongoUri = process.env.MONGODB_URI;
 
 app.use(bodyParser.json());
 
