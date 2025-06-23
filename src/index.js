@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/products');
+const errorHandler = require('./middlewares/errorHandler');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const path = require('path');
@@ -24,6 +25,8 @@ const swaggerDocument = YAML.load(path.join(__dirname, 'swagger', 'swagger.yaml'
 
 app.use('/', productRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

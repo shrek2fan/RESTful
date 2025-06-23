@@ -12,12 +12,12 @@ exports.uploadForm = (req, res) => {
            '<button type="submit">Submit</button></form>');
 };
 
-exports.listProducts = async (req, res) => {
+exports.listProducts = async (req, res, next) => {
   try {
     const products = await Product.find({});
     res.json(products);
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };
 
@@ -42,22 +42,22 @@ exports.queryPage = (req, res) => {
   res.send(queryPageHTML);
 };
 
-exports.createProduct = async (req, res) => {
+exports.createProduct = async (req, res, next) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
     res.send('Product added successfully');
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };
 
-exports.queryProducts = async (req, res) => {
+exports.queryProducts = async (req, res, next) => {
   try {
     const { maxPrice } = req.query;
     const products = await Product.find({ price: { $lte: maxPrice } }).sort('price');
     res.json(products);
   } catch (error) {
-    res.status(500).send(error);
+    next(error);
   }
 };

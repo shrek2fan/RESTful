@@ -67,6 +67,12 @@ After starting the server you can view an interactive Swagger UI describing all 
 http://localhost:3000/api-docs
 ```
 
+## Validation and error handling
+
+The `/product` endpoint checks required fields using `express-validator`.
+Validation errors return a `400` response with a JSON body describing all issues.
+All other errors are formatted by a global middleware for consistent responses.
+
 ## Main technologies
 
 - **Express** – web framework for Node.js
